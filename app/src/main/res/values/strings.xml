@@ -9,4 +9,7 @@
     <string name="settings">settings</string>
     <string name="search">Search</string>
     <string name="imageDesc">Картинка</string>
+    <string name="today">Сегодня</string>
+    <string name="yesterday">Вчера</string>
+    <string name="two_days_ago">Позавчера</string>
 </resources>
