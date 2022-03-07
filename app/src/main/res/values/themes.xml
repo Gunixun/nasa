@@ -1,24 +1,76 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Nasa" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimaryContainer">@color/red_100</item>
-        <item name="colorOnPrimaryContainer">@color/red_900</item>
-        <item name="colorPrimaryInverse">@color/red_200</item>
-        <item name="colorSecondary">@color/red_600</item>
-        <item name="colorOnSecondary">@color/white</item>
-        <item name="colorSecondaryContainer">@color/red_100</item>
-        <item name="colorOnSecondaryContainer">@color/red_900</item>
-        <item name="colorTertiary">@color/red_600</item>
-        <item name="colorOnTertiary">#712323</item>
-        <item name="colorTertiaryContainer">@color/red_100</item>
-        <item name="colorOnTertiaryContainer">@color/red_900</item>
+    <style name="BaseNasaTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="fontFamily">@font/roboto_medium</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+
+        <item name="android:statusBarColor">?superColor</item>
+        <item name="android:navigationBarColor">?superColor</item>
+        <item name="colorPrimary">?superColor_600</item>
+        <item name="colorOnPrimary">?superColor_0</item>
+        <item name="colorPrimaryContainer">?superColor_100</item>
+        <item name="colorOnPrimaryContainer">?superColor_900</item>
+        <item name="colorPrimaryInverse">?superColor_200</item>
+        <item name="colorSecondary">?superColor_600</item>
+        <item name="colorOnSecondary">?superColor_0</item>
+        <item name="colorSecondaryContainer">?superColor_100</item>
+        <item name="colorOnSecondaryContainer">?superColor_900</item>
+        <item name="colorTertiary">?superColor_600</item>
+        <item name="colorOnTertiary">?superColor_0</item>
+        <item name="colorTertiaryContainer">?superColor_100</item>
+        <item name="colorOnTertiaryContainer">?superColor_900</item>
+        <item name="colorOnSurface">?superColor_900</item>
 
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
+
+        <item name="superColor_0">#FFFFFF</item>
+        <item name="superColor">#4a148c</item>
+        <item name="superColor_100">#f2e4f4</item>
+        <item name="superColor_200">#ce93d8</item>
+        <item name="superColor_300">#ba68c8</item>
+        <item name="superColor_400">#ab47bc</item>
+        <item name="superColor_500">#9c27b0</item>
+        <item name="superColor_600">#8e24aa</item>
+        <item name="superColor_700">#7b1fa2</item>
+        <item name="superColor_800">#6a1b9a</item>
+        <item name="superColor_900">#4a148c</item>
     </style>
-    <style name="myFloatingActionButtonStyle" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">#FF0C59FB</item>
+    <style name="RedNasaTheme" parent="BaseNasaTheme">
+        <item name="superColor">#d50000</item>
+        <item name="superColor_100">#ffcdd2</item>
+        <item name="superColor_200">#ef9a9a</item>
+        <item name="superColor_300">#e57373</item>
+        <item name="superColor_400">#ef5350</item>
+        <item name="superColor_500">#f44336</item>
+        <item name="superColor_600">#e53935</item>
+        <item name="superColor_700">#d32f2f</item>
+        <item name="superColor_800">#c62828</item>
+        <item name="superColor_900">#b71c1c</item>
     </style>
-    <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="backgroundTint">@color/red_600</item>
+
+    <style name="BlueNasaTheme" parent="BaseNasaTheme">
+        <item name="superColor">#0E62FF</item>
+        <item name="superColor_100">#bbdefb</item>
+        <item name="superColor_200">#90caf9</item>
+        <item name="superColor_300">#64b5f6</item>
+        <item name="superColor_400">#42a5f5</item>
+        <item name="superColor_500">#2196f3</item>
+        <item name="superColor_600">#1e88e5</item>
+        <item name="superColor_700">#1976d2</item>
+        <item name="superColor_800">#1565c0</item>
+        <item name="superColor_900">#0d47a1</item>
+    </style>
+
+    <style name="GreenNasaTheme" parent="BaseNasaTheme">
+        <item name="superColor">#00c853</item>
+        <item name="superColor_100">#c8e6c9</item>
+        <item name="superColor_200">#a5d6a7</item>
+        <item name="superColor_300">#81c784</item>
+        <item name="superColor_400">#66bb6a</item>
+        <item name="superColor_500">#4caf50</item>
+        <item name="superColor_600">#43a047</item>
+        <item name="superColor_700">#388e3c</item>
+        <item name="superColor_800">#2e7d32</item>
+        <item name="superColor_900">#1b5e20</item>
     </style>
 </resources>

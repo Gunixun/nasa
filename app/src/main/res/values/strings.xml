@@ -12,4 +12,12 @@
     <string name="today">Сегодня</string>
     <string name="yesterday">Вчера</string>
     <string name="two_days_ago">Позавчера</string>
+    <string name="red_theme">Красная тема</string>
+    <string name="blue_theme">Синяя тема</string>
+    <string name="green_theme">Зеленная тема</string>
+    <string name="def_title">По умолчанию</string>
+    <string name="theme_title">Тема приложения:</string>
+    <string name="theme_day_night_title">Смена режима \"День/Ночь\"</string>
+    <string name="day_mode">День</string>
+    <string name="night_mode">Ночь</string>
 </resources>

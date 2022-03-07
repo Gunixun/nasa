@@ -16,6 +16,7 @@ import com.example.nasa.databinding.FragmentPictureByDayBinding
 import com.example.nasa.model.PictureModel
 import com.example.nasa.ui.BaseFragmentWithModel
 import com.example.nasa.ui.NavToolBar
+import com.example.nasa.ui.settings.SettingsFragment
 import com.example.nasa.utils.showSnackBar
 import com.example.nasa.view_model.PictureByDayState
 import com.example.nasa.view_model.PictureByDayViewModel
@@ -114,7 +115,11 @@ class PictureByDayFragment :
             R.id.app_bar_fav -> Toast.makeText(requireContext(), "app_bar_fav", Toast.LENGTH_SHORT)
                 .show()
             R.id.app_bar_settings -> {
-                Toast.makeText(requireContext(), "app_bar_settings", Toast.LENGTH_SHORT).show()
+                activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.replace(R.id.container, SettingsFragment.newInstance())
+                    ?.addToBackStack("")
+                    ?.commit()
             }
             android.R.id.home -> {
                 BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"")
