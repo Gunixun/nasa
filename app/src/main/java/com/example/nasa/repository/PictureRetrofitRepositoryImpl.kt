@@ -18,15 +18,17 @@ import java.util.*
 class PictureRetrofitRepositoryImpl : IPictureRepository {
 
     private val baseUrl = "https://api.nasa.gov/"
+    private val api by lazy {
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+            .build().create(PictureByDayApi::class.java)
+    }
 
     override fun getPictureByDate(date: Date, callback: CallbackData<PictureModel>){
         val sdf = SimpleDateFormat("yyyy-M-dd")
         val currentDate = sdf.format(date)
-        val retrofit = Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
-            .build().create(PictureByDayApi::class.java)
-        retrofit.getPictureByDay(BuildConfig.NASA_API_KEY, currentDate).enqueue(
+        api.getPictureByDay(BuildConfig.NASA_API_KEY, currentDate).enqueue(
             object : Callback<PictureDTO> {
                 override fun onResponse(call: Call<PictureDTO>, response: Response<PictureDTO>) {
                     val pictureDTO: PictureDTO? = response.body()
