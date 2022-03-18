@@ -15,7 +15,6 @@ import com.example.nasa.R
 import com.example.nasa.databinding.FragmentPictureByDayBinding
 import com.example.nasa.model.PictureModel
 import com.example.nasa.ui.BaseFragmentWithModel
-import com.example.nasa.ui.NavToolBar
 import com.example.nasa.ui.settings.SettingsFragment
 import com.example.nasa.utils.showSnackBar
 import com.example.nasa.view_model.PictureByDayState
@@ -69,7 +68,6 @@ class PictureByDayFragment :
 
     private fun initUi() {
         setHasOptionsMenu(true)
-        (requireActivity() as NavToolBar).supplyToolbar(binding.bottomAppBar)
 
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {

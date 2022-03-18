@@ -12,6 +12,7 @@
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_send.xml" value="0.1455" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_settings_menu.xml" value="0.186" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_wikipedia.xml" value="0.194" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/mars.xml" value="0.259" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/activity_main.xml" value="0.1661600810536981" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/bottom_navigation_layout.xml" value="0.1765625" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.18" />
@@ -19,8 +20,10 @@
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_picture_by_day.xml" value="0.25" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_picture_of_the_day.xml" value="0.25" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_settings.xml" value="0.2" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/bottom_navigation_view.xml" value="0.20820863616930313" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/menu_bottom_bar.xml" value="0.24114583333333334" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.1765625" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/menu_bottom_navigation_view.xml" value="0.20820863616930313" />
       </map>
     </option>
   </component>
