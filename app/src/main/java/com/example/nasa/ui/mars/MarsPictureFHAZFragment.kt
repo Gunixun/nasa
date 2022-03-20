@@ -12,21 +12,22 @@ import com.example.nasa.model.MarsPictureModel
 import com.example.nasa.ui.BaseFragmentWithModel
 import com.example.nasa.utils.showSnackBar
 import com.example.nasa.view_model.AppState
-import com.example.nasa.view_model.MarsViewModel
+import com.example.nasa.view_model.MarsPictureViewModel
 import java.time.LocalDate
 import java.time.Month
 import java.time.ZoneId
 import java.util.*
 
-class MarsPictureFragment :
-    BaseFragmentWithModel<MarsViewModel, FragmentMarsPictureBinding>
+class MarsPictureFHAZFragment :
+    BaseFragmentWithModel<MarsPictureViewModel, FragmentMarsPictureBinding>
         (FragmentMarsPictureBinding::inflate) {
 
     private lateinit var currentDate: Date
+    private val cameraName = "FHAZ"
     private var retryIter: Int = 0
 
     companion object {
-        fun newInstance() = MarsPictureFragment()
+        fun newInstance() = MarsPictureFHAZFragment()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -37,7 +38,7 @@ class MarsPictureFragment :
         // INFO: чтобы не тратить время пока зашил конкретную дату, позже добавлю обработку текущей даты + календарь
         val localDate = LocalDate.of(2022, Month.MARCH, 3)
         currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
-        viewModel.sendServerRequest(currentDate)
+        viewModel.sendServerRequest(currentDate, cameraName)
     }
 
     private fun renderData(pictureOfTheDayState: AppState) {
@@ -54,7 +55,7 @@ class MarsPictureFragment :
                     binding.root.showSnackBar(
                         text = pictureOfTheDayState.error.toString(),
                         actionText = R.string.retry,
-                        { viewModel.sendServerRequest(currentDate) }
+                        { viewModel.sendServerRequest(currentDate, cameraName) }
                     )
                 }
                 retryIter++

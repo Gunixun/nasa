@@ -4,6 +4,7 @@ import com.example.nasa.BuildConfig
 import com.example.nasa.model.PictureByDayModel
 import com.example.nasa.repository.api.RetrofitApi
 import com.example.nasa.repository.dto.PictureByDayResponceData
+import com.example.nasa.utils.BASEURL
 import com.example.nasa.utils.CallbackData
 import com.example.nasa.utils.convertPictureDtoToModel
 import com.google.gson.GsonBuilder
@@ -17,20 +18,22 @@ import java.util.*
 
 class PictureRetrofitRepositoryImpl : IPictureRepository {
 
-    private val baseUrl = "https://api.nasa.gov/"
     private val api by lazy {
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BASEURL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build().create(RetrofitApi::class.java)
     }
 
-    override fun getPictureByDate(date: Date, callback: CallbackData<PictureByDayModel>){
+    override fun getPictureByDate(date: Date, callback: CallbackData<PictureByDayModel>) {
         val sdf = SimpleDateFormat("yyyy-M-dd")
         val currentDate = sdf.format(date)
         api.getPictureByDay(BuildConfig.NASA_API_KEY, currentDate).enqueue(
             object : Callback<PictureByDayResponceData> {
-                override fun onResponse(call: Call<PictureByDayResponceData>, response: Response<PictureByDayResponceData>) {
+                override fun onResponse(
+                    call: Call<PictureByDayResponceData>,
+                    response: Response<PictureByDayResponceData>
+                ) {
                     val pictureByDayResponceData: PictureByDayResponceData? = response.body()
                     if (pictureByDayResponceData != null) {
                         callback.onSuccess(

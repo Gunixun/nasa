@@ -11,13 +11,13 @@ import java.util.*
 class PictureByDayViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),
     private val repository: IPictureRepository = PictureRetrofitRepositoryImpl()
-    ): BaseViewModel() {
+) : BaseViewModel() {
 
-    fun getLiveData(): LiveData<AppState>  = liveData
+    fun getLiveData(): LiveData<AppState> = liveData
 
-    fun sendServerRequest(date: Date){
+    fun sendServerRequest(date: Date) {
         liveData.postValue(AppState.Loading(null))
-        repository.getPictureByDate(date,  object : CallbackData<PictureByDayModel> {
+        repository.getPictureByDate(date, object : CallbackData<PictureByDayModel> {
             override fun onSuccess(result: PictureByDayModel) {
                 liveData.postValue(AppState.SuccessPBD(result))
             }

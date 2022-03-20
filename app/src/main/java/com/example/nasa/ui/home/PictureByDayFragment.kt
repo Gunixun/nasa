@@ -80,7 +80,7 @@ class PictureByDayFragment :
         initBottomSheetBehavior()
     }
 
-    private fun connectChipGroup(){
+    private fun connectChipGroup() {
         binding.chipToday.isChecked = true
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when {
@@ -105,7 +105,7 @@ class PictureByDayFragment :
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar,menu)
+        inflater.inflate(R.menu.menu_bottom_bar, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -120,7 +120,7 @@ class PictureByDayFragment :
                     ?.commit()
             }
             android.R.id.home -> {
-                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager,"")
+                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
             }
         }
         return super.onOptionsItemSelected(item)

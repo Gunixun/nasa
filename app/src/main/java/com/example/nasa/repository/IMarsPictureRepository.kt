@@ -5,5 +5,5 @@ import com.example.nasa.utils.CallbackData
 import java.util.*
 
 interface IMarsPictureRepository {
-    fun getMarsPicture(date: Date, callback: CallbackData<MarsPictureModel>)
+    fun getMarsPicture(date: Date, cameraName: String, callback: CallbackData<MarsPictureModel>)
 }

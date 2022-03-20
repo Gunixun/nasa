@@ -6,7 +6,7 @@ import com.example.nasa.databinding.FragmentNavigationViewBinding
 import com.example.nasa.ui.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
-class NavigationFragment:
+class NavigationFragment :
     BaseFragment<FragmentNavigationViewBinding>(FragmentNavigationViewBinding::inflate) {
 
     companion object {
@@ -17,11 +17,12 @@ class NavigationFragment:
         super.onViewCreated(view, savedInstanceState)
         binding.viewPager.adapter = ViewPagerAdapter(this)
 
-        TabLayoutMediator(binding.tabLayout,binding.viewPager
+        TabLayoutMediator(
+            binding.tabLayout, binding.viewPager
         ) { tab, position ->
             tab.text = when (position) {
-                ViewList.MARS.value -> "Mars"
-                ViewList.WEATHER.value -> "Mars Weather"
+                ViewList.MARSFHAZ.value -> "Camera FHAZ"
+                ViewList.MARSRHAZ.value -> "Camera CHEMCAM"
                 else -> "Mars"
             }
         }.attach()

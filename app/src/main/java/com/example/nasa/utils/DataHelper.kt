@@ -6,6 +6,8 @@ import com.example.nasa.repository.dto.MarsPicturesResponseData
 import com.example.nasa.repository.dto.MarsServerResponseData
 import com.example.nasa.repository.dto.PictureByDayResponceData
 
+val BASEURL = "https://api.nasa.gov/"
+
 
 fun convertPictureDtoToModel(responseData: PictureByDayResponceData):PictureByDayModel{
     return PictureByDayModel(

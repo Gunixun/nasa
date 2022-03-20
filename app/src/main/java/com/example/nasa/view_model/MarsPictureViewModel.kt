@@ -8,16 +8,16 @@ import com.example.nasa.repository.MarsRetrofitRepository
 import com.example.nasa.utils.CallbackData
 import java.util.*
 
-class MarsViewModel(
+class MarsPictureViewModel(
     private val liveData: MutableLiveData<AppState> = MutableLiveData(),
     private val repository: IMarsPictureRepository = MarsRetrofitRepository()
 ) : BaseViewModel() {
 
     fun getLiveData(): LiveData<AppState> = liveData
 
-    fun sendServerRequest(date: Date){
+    fun sendServerRequest(date: Date, cameraName: String, ){
         liveData.postValue(AppState.Loading(null))
-        repository.getMarsPicture(date,  object : CallbackData<MarsPictureModel> {
+        repository.getMarsPicture(date, cameraName, object : CallbackData<MarsPictureModel> {
             override fun onSuccess(result: MarsPictureModel) {
                 liveData.postValue(AppState.SuccessMarsPicture(result))
             }

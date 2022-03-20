@@ -4,14 +4,14 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 enum class ViewList(val value: Int) {
-    MARS(0), WEATHER(1);
+    MARSFHAZ(0), MARSRHAZ(1);
 }
 
 
 class ViewPagerAdapter(private val fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
-    private val fragments = arrayOf(MarsPictureFragment.newInstance(), MarsWeatherFragment.newInstance())
+    private val fragments = arrayOf(MarsPictureFHAZFragment.newInstance(), MarsPictureCHEMCAMFragment.newInstance())
 
     override fun getItemCount() = fragments.size
 

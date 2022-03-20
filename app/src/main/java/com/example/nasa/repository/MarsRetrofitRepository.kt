@@ -4,6 +4,7 @@ import com.example.nasa.BuildConfig
 import com.example.nasa.model.MarsPictureModel
 import com.example.nasa.repository.api.RetrofitApi
 import com.example.nasa.repository.dto.MarsPicturesResponseData
+import com.example.nasa.utils.BASEURL
 import com.example.nasa.utils.CallbackData
 import com.example.nasa.utils.convertMarsPicturesDtoToModel
 import com.google.gson.GsonBuilder
@@ -17,20 +18,26 @@ import java.util.*
 
 class MarsRetrofitRepository : IMarsPictureRepository {
 
-    private val baseUrl = "https://api.nasa.gov/"
     private val api by lazy {
         Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BASEURL)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build().create(RetrofitApi::class.java)
     }
 
-    override fun getMarsPicture(date: Date, callback: CallbackData<MarsPictureModel>) {
+    override fun getMarsPicture(
+        date: Date,
+        cameraName: String,
+        callback: CallbackData<MarsPictureModel>
+    ) {
         val sdf = SimpleDateFormat("yyyy-M-dd")
         val currentDate = sdf.format(date)
-        api.getMarsPictureByDate(currentDate, BuildConfig.NASA_API_KEY).enqueue(
+        api.getMarsPictureByDate(cameraName, currentDate, BuildConfig.NASA_API_KEY).enqueue(
             object : Callback<MarsPicturesResponseData> {
-                override fun onResponse(call: Call<MarsPicturesResponseData>, response: Response<MarsPicturesResponseData>) {
+                override fun onResponse(
+                    call: Call<MarsPicturesResponseData>,
+                    response: Response<MarsPicturesResponseData>
+                ) {
                     val marsPicturesResponseData: MarsPicturesResponseData? = response.body()
                     if (marsPicturesResponseData != null) {
                         callback.onSuccess(

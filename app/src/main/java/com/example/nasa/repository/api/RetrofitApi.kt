@@ -16,6 +16,7 @@ interface RetrofitApi {
 
     @GET("/mars-photos/api/v1/rovers/curiosity/photos")
     fun getMarsPictureByDate(
+        @Query("camera") camera: String = "fhaz",
         @Query("earth_date") earth_date: String,
         @Query("api_key") apiKey: String,
     ): Call<MarsPicturesResponseData>
