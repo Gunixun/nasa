@@ -2,7 +2,7 @@ package com.example.nasa.repository.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class PictureDTO(
+data class PictureByDayResponceData(
     val copyright: String,
     val date: String,
     val explanation: String,

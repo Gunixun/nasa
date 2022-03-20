@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.nasa.R
 import com.example.nasa.databinding.ActivityMainBinding
-import com.example.nasa.ui.main.PictureByDayFragment
+import com.example.nasa.ui.home.PictureByDayFragment
+import com.example.nasa.ui.mars.NavigationFragment
 import com.example.nasa.ui.settings.SettingsFragment
 import com.example.nasa.utils.getCurrentDayNightMode
 import com.example.nasa.utils.getCurrentTheme
@@ -21,7 +22,9 @@ class MainActivity : AppCompatActivity(){
         setTheme(getRealStyle(getCurrentTheme(this)))
         AppCompatDelegate.setDefaultNightMode(getDayNightMode(getCurrentDayNightMode(this)));
         setContentView(R.layout.activity_main)
-        navigationTo(PictureByDayFragment.newInstance())
+        if (savedInstanceState == null) {
+            navigationTo(PictureByDayFragment.newInstance())
+        }
         initBottomNavigationView()
     }
 
@@ -35,6 +38,7 @@ class MainActivity : AppCompatActivity(){
                     true
                 }
                 R.id.bottom_view_mars -> {
+                    navigationTo(NavigationFragment.newInstance())
                     true
                 }
                 R.id.bottom_view_moon -> {

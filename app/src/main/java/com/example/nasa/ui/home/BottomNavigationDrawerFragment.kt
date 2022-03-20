@@ -1,4 +1,4 @@
-package com.example.nasa.ui.main
+package com.example.nasa.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

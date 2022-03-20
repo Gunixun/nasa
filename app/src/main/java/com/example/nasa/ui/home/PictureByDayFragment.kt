@@ -1,4 +1,4 @@
-package com.example.nasa.ui.main
+package com.example.nasa.ui.home
 
 import android.content.Intent
 import android.net.Uri
@@ -13,11 +13,11 @@ import androidx.core.view.isVisible
 import coil.load
 import com.example.nasa.R
 import com.example.nasa.databinding.FragmentPictureByDayBinding
-import com.example.nasa.model.PictureModel
+import com.example.nasa.model.PictureByDayModel
 import com.example.nasa.ui.BaseFragmentWithModel
 import com.example.nasa.ui.settings.SettingsFragment
 import com.example.nasa.utils.showSnackBar
-import com.example.nasa.view_model.PictureByDayState
+import com.example.nasa.view_model.AppState
 import com.example.nasa.view_model.PictureByDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import java.util.*
@@ -27,7 +27,7 @@ class PictureByDayFragment :
         (FragmentPictureByDayBinding::inflate) {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var currenDate: Date
+    private lateinit var currentDate: Date
 
     companion object {
         fun newInstance() = PictureByDayFragment()
@@ -36,34 +36,34 @@ class PictureByDayFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLiveData().observe(viewLifecycleOwner) { state -> renderData(state) }
-        currenDate = Date()
+        currentDate = Date()
         initUi()
-        viewModel.sendServerRequest(currenDate)
+        viewModel.sendServerRequest(currentDate)
     }
 
-    private fun renderData(pictureOfTheDayState: PictureByDayState) {
+    private fun renderData(pictureOfTheDayState: AppState) {
         binding.progress.isVisible = false
         when (pictureOfTheDayState) {
-            is PictureByDayState.Loading -> {
+            is AppState.Loading -> {
                 binding.progress.isVisible = true
             }
-            is PictureByDayState.Success -> {
+            is AppState.SuccessPBD -> {
                 setPictureModel(pictureOfTheDayState.serverResponseData)
             }
-            is PictureByDayState.Error -> {
+            is AppState.Error -> {
                 binding.root.showSnackBar(
                     text = pictureOfTheDayState.error.toString(),
                     actionText = R.string.retry,
-                    { viewModel.sendServerRequest(currenDate) }
+                    { viewModel.sendServerRequest(currentDate) }
                 )
             }
         }
     }
 
-    private fun setPictureModel(pictureModel: PictureModel) {
-        binding.imageView.load(pictureModel.hdurl)
-        binding.included.bottomSheetDescriptionHeader.text = pictureModel.title
-        binding.included.bottomSheetDescription.text = pictureModel.explanation
+    private fun setPictureModel(pictureByDayModel: PictureByDayModel) {
+        binding.imageView.load(pictureByDayModel.hdurl)
+        binding.included.bottomSheetDescriptionHeader.text = pictureByDayModel.title
+        binding.included.bottomSheetDescription.text = pictureByDayModel.explanation
     }
 
     private fun initUi() {
@@ -85,16 +85,16 @@ class PictureByDayFragment :
         binding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
             when {
                 binding.chipToday.id == checkedId -> {
-                    currenDate = Date()
+                    currentDate = Date()
                 }
                 binding.chipYesterday.id == checkedId -> {
-                    currenDate = Date(Date().getTime() - (1000 * 60 * 60 * 24))
+                    currentDate = Date(Date().getTime() - (1000 * 60 * 60 * 24))
                 }
                 binding.chipTwoDaysAgo.id == checkedId -> {
-                    currenDate = Date(Date().getTime() - (1000 * 60 * 60 * 48))
+                    currentDate = Date(Date().getTime() - (1000 * 60 * 60 * 48))
                 }
             }
-            viewModel.sendServerRequest(currenDate)
+            viewModel.sendServerRequest(currentDate)
         }
     }
 

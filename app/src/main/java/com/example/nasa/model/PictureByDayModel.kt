@@ -1,6 +1,6 @@
 package com.example.nasa.model
 
-data class PictureModel(
+data class PictureByDayModel(
     val date: String,
     val explanation: String,
     val hdurl: String,
