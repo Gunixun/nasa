@@ -11,7 +11,10 @@ enum class ViewList(val value: Int) {
 class ViewPagerAdapter(private val fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
-    private val fragments = arrayOf(MarsPictureFHAZFragment.newInstance(), MarsPictureCHEMCAMFragment.newInstance())
+    private val fragments = arrayOf(
+        MarsPictureFragment.newInstance("FHAZ"),
+        MarsPictureFragment.newInstance("CHEMCAM")
+    )
 
     override fun getItemCount() = fragments.size
 
