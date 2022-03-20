@@ -62,7 +62,7 @@ class PictureByDayFragment :
                     )
                 } else{
                     binding.root.showMsgSnackBar(
-                        text = pictureOfTheDayState.error.toString()
+                        text = this.resources.getString(R.string.fall_load_data)
                     )
                 }
                 retryIter++
