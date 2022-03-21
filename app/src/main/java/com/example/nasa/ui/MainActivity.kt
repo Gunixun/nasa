@@ -42,10 +42,10 @@ class MainActivity : AppCompatActivity(){
                     true
                 }
                 R.id.bottom_view_moon -> {
-                    true
+                    false
                 }
                 R.id.bottom_view_meteorite -> {
-                    true
+                    false
                 }
                 R.id.bottom_view_settings -> {
                     navigationTo(SettingsFragment.newInstance())
