@@ -3,11 +3,7 @@ package com.example.nasa.ui.home
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import coil.load
@@ -15,7 +11,6 @@ import com.example.nasa.R
 import com.example.nasa.databinding.FragmentPictureByDayBinding
 import com.example.nasa.model.PictureByDayModel
 import com.example.nasa.ui.BaseFragmentWithModel
-import com.example.nasa.ui.settings.SettingsFragment
 import com.example.nasa.utils.showErrSnackBar
 import com.example.nasa.utils.showMsgSnackBar
 import com.example.nasa.view_model.AppState
@@ -77,8 +72,6 @@ class PictureByDayFragment :
     }
 
     private fun initUi() {
-        setHasOptionsMenu(true)
-
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data =
@@ -112,28 +105,5 @@ class PictureByDayFragment :
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         bottomSheetBehavior.setHideable(false)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_bottom_bar, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.app_bar_fav -> Toast.makeText(requireContext(), "app_bar_fav", Toast.LENGTH_SHORT)
-                .show()
-            R.id.app_bar_settings -> {
-                activity?.supportFragmentManager
-                    ?.beginTransaction()
-                    ?.replace(R.id.container, SettingsFragment.newInstance())
-                    ?.addToBackStack("")
-                    ?.commit()
-            }
-            android.R.id.home -> {
-                BottomNavigationDrawerFragment().show(requireActivity().supportFragmentManager, "")
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }
