@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.20" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.60" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/inputLayout"
@@ -21,10 +41,10 @@
             app:endIconDrawable="@drawable/ic_wikipedia"
             app:endIconMode="custom"
             app:helperText="@string/wiki_helper_text"
-            app:layout_constraintBottom_toTopOf="@+id/chipGroup"
+            app:layout_constraintBottom_toBottomOf="@+id/guidelineSearch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guidelineSearch"
             app:startIconContentDescription="@string/imageDesc"
             app:startIconDrawable="@drawable/ic_search">
 
@@ -40,7 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/inputLayout"
+            app:layout_constraintTop_toTopOf="@+id/guideline2"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline2"
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
@@ -71,11 +92,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipGroup"
+            app:layout_constraintTop_toTopOf="@+id/guidelineImage"
+            app:layout_constraintBottom_toBottomOf="@+id/guidelineImage"
             app:srcCompat="@drawable/ic_no_photo_vector" />
 
         <ProgressBar
@@ -89,6 +109,8 @@
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include android:id="@+id/included" layout="@layout/bottom_sheet_layout" />
+    <include
+        android:id="@+id/included"
+        layout="@layout/bottom_sheet_layout" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,6 +8,7 @@ import com.example.nasa.R
 import com.example.nasa.databinding.ActivityMainBinding
 import com.example.nasa.ui.home.PictureByDayFragment
 import com.example.nasa.ui.mars.NavigationFragment
+import com.example.nasa.ui.nebula.NebulaFragment
 import com.example.nasa.ui.settings.SettingsFragment
 import com.example.nasa.utils.getCurrentDayNightMode
 import com.example.nasa.utils.getCurrentTheme
@@ -44,8 +45,9 @@ class MainActivity : AppCompatActivity(){
                 R.id.bottom_view_moon -> {
                     false
                 }
-                R.id.bottom_view_meteorite -> {
-                    false
+                R.id.bottom_view_nebula -> {
+                    navigationTo(NebulaFragment.newInstance())
+                    true
                 }
                 R.id.bottom_view_settings -> {
                     navigationTo(SettingsFragment.newInstance())
