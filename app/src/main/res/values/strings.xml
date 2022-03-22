@@ -6,7 +6,7 @@
     <string name="search_wiki">Найти в Википедии</string>
     <string name="wiki_helper_text">Поищите термин в википедии</string>
     <string name="favourite">favourite</string>
-    <string name="settings">settings</string>
+    <string name="settings">Settings</string>
     <string name="search">Search</string>
     <string name="imageDesc">Картинка</string>
     <string name="today">Сегодня</string>
@@ -20,4 +20,9 @@
     <string name="theme_day_night_title">Смена режима \"День/Ночь\"</string>
     <string name="day_mode">День</string>
     <string name="night_mode">Ночь</string>
+    <string name="home">Home</string>
+    <string name="mars">Mars</string>
+    <string name="moon">Moon</string>
+    <string name="meteorite">Meteorite</string>
+    <string name="fall_load_data">Не удалось загрузить данные</string>
 </resources>
