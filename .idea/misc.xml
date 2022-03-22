@@ -21,9 +21,11 @@
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_mars_picture.xml" value="0.22530996152201796" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_mars_weather.xml" value="0.2877297990594271" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_navigation_view.xml" value="0.2877297990594271" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_nebula_page.xml" value="0.2877297990594271" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_picture_by_day.xml" value="0.25" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_picture_of_the_day.xml" value="0.25" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_settings.xml" value="0.2" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/test.xml" value="0.19923044035912782" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/bottom_navigation_view.xml" value="0.20820863616930313" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/menu_bottom_bar.xml" value="0.24114583333333334" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/menu_bottom_navigation.xml" value="0.1765625" />

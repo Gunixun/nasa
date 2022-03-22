@@ -16,9 +16,9 @@
         android:title="@string/moon" />
 
     <item
-        android:id="@+id/bottom_view_meteorite"
+        android:id="@+id/bottom_view_nebula"
         android:icon="@drawable/ic_meteorite"
-        android:title="@string/meteorite" />
+        android:title="@string/nebula" />
 
     <item
         android:id="@+id/bottom_view_settings"
