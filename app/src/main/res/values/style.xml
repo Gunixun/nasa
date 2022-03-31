@@ -6,4 +6,9 @@
     <style name="myBottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="backgroundTint">?superColor</item>
     </style>
+    <style name="myBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="backgroundTint">?superColor_800</item>
+        <item name="itemIconTint">?superColor_200</item>
+        <item name="itemTextColor">?superColor_200</item>
+    </style>
 </resources>
