@@ -3,7 +3,10 @@ package com.example.nasa.ui.home
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.transition.ChangeImageTransform
+import android.transition.TransitionManager
 import android.view.View
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import coil.load
@@ -28,6 +31,7 @@ class PictureByDayFragment :
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var currentDate: Date
     private var retryIter: Int = 0
+    private var zoom: Boolean = false
 
     companion object {
         fun newInstance() = PictureByDayFragment()
@@ -112,6 +116,14 @@ class PictureByDayFragment :
             })
         }
 
+        binding.imageView.setOnClickListener {
+            val changeBounds = ChangeImageTransform()
+            changeBounds.duration = 1500
+            TransitionManager.beginDelayedTransition(binding.container, changeBounds)
+            zoom = !zoom
+            binding.imageView.scaleType = if(zoom) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.CENTER_INSIDE
+        }
+
         connectChipGroup()
         initBottomSheetBehavior()
     }
@@ -136,7 +148,7 @@ class PictureByDayFragment :
 
     private fun initBottomSheetBehavior() {
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetBehavior.setHideable(false)
     }
 }

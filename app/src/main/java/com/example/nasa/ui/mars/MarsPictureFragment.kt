@@ -2,7 +2,10 @@ package com.example.nasa.ui.mars
 
 import android.os.Build
 import android.os.Bundle
+import android.transition.ChangeImageTransform
+import android.transition.TransitionManager
 import android.view.View
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import coil.load
