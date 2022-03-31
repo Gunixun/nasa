@@ -2,7 +2,7 @@ package com.example.nasa.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.nasa.model.PictureByDayModel
+import com.example.nasa.model.PictureByDayData
 import com.example.nasa.repository.IPictureRepository
 import com.example.nasa.repository.PictureRetrofitRepositoryImpl
 import com.example.nasa.utils.CallbackData
@@ -17,8 +17,8 @@ class PictureByDayViewModel(
 
     fun sendServerRequest(date: Date) {
         liveData.postValue(AppState.Loading(null))
-        repository.getPictureByDate(date, object : CallbackData<PictureByDayModel> {
-            override fun onSuccess(result: PictureByDayModel) {
+        repository.getPictureByDate(date, object : CallbackData<PictureByDayData> {
+            override fun onSuccess(result: PictureByDayData) {
                 liveData.postValue(AppState.SuccessPBD(result))
             }
 

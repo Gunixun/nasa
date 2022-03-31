@@ -1,16 +1,15 @@
 package com.example.nasa.utils
 
 import com.example.nasa.model.MarsPictureModel
-import com.example.nasa.model.PictureByDayModel
+import com.example.nasa.model.PictureByDayData
 import com.example.nasa.repository.dto.MarsPicturesResponseData
-import com.example.nasa.repository.dto.MarsServerResponseData
 import com.example.nasa.repository.dto.PictureByDayResponceData
 
 val BASEURL = "https://api.nasa.gov/"
 
 
-fun convertPictureDtoToModel(responseData: PictureByDayResponceData):PictureByDayModel{
-    return PictureByDayModel(
+fun convertPictureDtoToModel(responseData: PictureByDayResponceData):PictureByDayData{
+    return PictureByDayData(
         date = responseData.date,
         explanation = responseData.explanation,
         hdurl = responseData.hdurl,

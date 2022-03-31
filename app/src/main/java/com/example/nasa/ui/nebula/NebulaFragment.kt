@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
-import androidx.core.widget.NestedScrollView
 import coil.load
 import com.example.nasa.R
 import com.example.nasa.databinding.FragmentNebulaPageBinding
-import com.example.nasa.model.PictureByDayModel
+import com.example.nasa.model.PictureByDayData
 import com.example.nasa.ui.BaseFragmentWithModel
 import com.example.nasa.utils.showErrSnackBar
 import com.example.nasa.utils.showMsgSnackBar
@@ -48,7 +47,7 @@ class NebulaFragment :
                 binding.progress.isVisible = true
             }
             is AppState.SuccessPBD -> {
-                setPictureModel(pictureOfTheDayState.serverResponseData)
+                setPictureData(pictureOfTheDayState.serverResponseData)
                 retryIter = 0
             }
             is AppState.Error -> {
@@ -68,10 +67,10 @@ class NebulaFragment :
         }
     }
 
-    private fun setPictureModel(pictureByDayModel: PictureByDayModel) {
-        binding.imageView.load(pictureByDayModel.hdurl)
-        binding.titleTextView.text = pictureByDayModel.title
-        binding.descriptionTextView.text = pictureByDayModel.explanation
+    private fun setPictureData(pictureByDayData: PictureByDayData) {
+        binding.imageView.load(pictureByDayData.hdurl)
+        binding.titleTextView.text = pictureByDayData.title
+        binding.descriptionTextView.text = pictureByDayData.explanation
     }
 
 }
