@@ -2,7 +2,6 @@ package com.example.nasa.ui.home
 
 import android.content.Intent
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import java.util.*
+import java.util.regex.Pattern
 
 class PictureByDayFragment :
     BaseFragmentWithModel<PictureByDayViewModel, FragmentPictureByDayBinding>
@@ -68,6 +68,19 @@ class PictureByDayFragment :
         }
     }
 
+    fun extractYTId(ytUrl: String): String {
+        var vId: String? = null
+        val pattern = Pattern.compile(
+            "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
+            Pattern.CASE_INSENSITIVE
+        )
+        val matcher = pattern.matcher(ytUrl)
+        if (matcher.matches()) {
+            vId = matcher.group(1)
+        }
+        return vId!!
+    }
+
     private fun showNasaVideo(videoId:String){
         lifecycle.addObserver(binding.youtubePlayerView)
         binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
@@ -81,7 +94,7 @@ class PictureByDayFragment :
         if (pictureByDayData.mediaType == "video"){
             binding.youtubePlayerView.isVisible = true
             binding.imageView.isVisible = false
-            showNasaVideo("5xVh-7ywKpE")
+            showNasaVideo(extractYTId(pictureByDayData.url))
         } else {
             binding.youtubePlayerView.isVisible = false
             binding.imageView.isVisible = true
