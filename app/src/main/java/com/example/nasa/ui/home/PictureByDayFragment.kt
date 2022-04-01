@@ -14,11 +14,13 @@ import com.example.nasa.R
 import com.example.nasa.databinding.FragmentPictureByDayBinding
 import com.example.nasa.model.PictureByDayData
 import com.example.nasa.ui.BaseFragmentWithModel
-import com.example.nasa.utils.showErrSnackBar
-import com.example.nasa.utils.showMsgSnackBar
+import com.example.nasa.utils.createMsgSnackBar
+import com.example.nasa.utils.createErrSnackBar
+import com.example.nasa.utils.hideSnackBar
 import com.example.nasa.view_model.AppState
 import com.example.nasa.view_model.PictureByDayViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.snackbar.Snackbar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import java.util.*
@@ -32,6 +34,7 @@ class PictureByDayFragment :
     private lateinit var currentDate: Date
     private var retryIter: Int = 0
     private var zoom: Boolean = false
+    private var snackBar: Snackbar? =null
 
     companion object {
         fun newInstance() = PictureByDayFragment()
@@ -50,6 +53,7 @@ class PictureByDayFragment :
         when (pictureOfTheDayState) {
             is AppState.Loading -> {
                 binding.progress.isVisible = true
+                binding.root.hideSnackBar(snackBar)
             }
             is AppState.SuccessPBD -> {
                 setPictureData(pictureOfTheDayState.serverResponseData)
@@ -57,15 +61,16 @@ class PictureByDayFragment :
             }
             is AppState.Error -> {
                 if (retryIter < 3) {
-                    binding.root.showErrSnackBar(
+                    snackBar = binding.root.createErrSnackBar(
                         text = pictureOfTheDayState.error.toString(),
                         actionText = R.string.retry,
                         { viewModel.sendServerRequest(currentDate) }
                     )
+                    snackBar?.show()
                 } else{
-                    binding.root.showMsgSnackBar(
+                    binding.root.createMsgSnackBar(
                         text = this.resources.getString(R.string.fall_load_data)
-                    )
+                    ).show()
                 }
                 retryIter++
             }
