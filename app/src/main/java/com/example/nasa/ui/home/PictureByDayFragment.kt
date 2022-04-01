@@ -3,8 +3,7 @@ package com.example.nasa.ui.home
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.transition.ChangeImageTransform
-import android.transition.TransitionManager
+import android.transition.*
 import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -50,6 +49,8 @@ class PictureByDayFragment :
 
     private fun renderData(pictureOfTheDayState: AppState) {
         binding.progress.isVisible = false
+        binding.imageView.isVisible = false
+        binding.youtubePlayerView.isVisible = false
         when (pictureOfTheDayState) {
             is AppState.Loading -> {
                 binding.progress.isVisible = true
@@ -101,12 +102,10 @@ class PictureByDayFragment :
 
     private fun setPictureData(pictureByDayData: PictureByDayData) {
         if (pictureByDayData.mediaType == "video"){
-            binding.youtubePlayerView.isVisible = true
-            binding.imageView.isVisible = false
+            animationsVisibilityPictureByDay(binding.youtubePlayerView)
             showNasaVideo(extractYTId(pictureByDayData.url))
         } else {
-            binding.youtubePlayerView.isVisible = false
-            binding.imageView.isVisible = true
+            animationsVisibilityPictureByDay(binding.imageView)
             binding.imageView.load(pictureByDayData.hdurl)
             binding.included.bottomSheetDescriptionHeader.text = pictureByDayData.title
             binding.included.bottomSheetDescription.text = pictureByDayData.explanation
@@ -155,5 +154,18 @@ class PictureByDayFragment :
         bottomSheetBehavior = BottomSheetBehavior.from(binding.included.bottomSheetContainer)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
         bottomSheetBehavior.setHideable(false)
+    }
+
+    private fun animationsVisibilityPictureByDay(view: View) {
+        val transition = TransitionSet()
+        val fade = Fade()
+        fade.duration = 4000
+        val changeBounds = ChangeBounds()
+        changeBounds.duration = 2000
+        transition.ordering = TransitionSet.ORDERING_SEQUENTIAL
+        transition.addTransition(fade)
+        transition.addTransition(changeBounds)
+        TransitionManager.beginDelayedTransition(binding.container,transition)
+        view.visibility =  View.VISIBLE
     }
 }

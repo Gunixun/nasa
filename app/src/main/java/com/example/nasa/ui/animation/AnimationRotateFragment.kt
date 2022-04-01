@@ -10,9 +10,9 @@ import com.example.nasa.databinding.FragmentAnimationsRotateBinding
 import com.example.nasa.ui.BaseFragment
 
 class AnimationRotateFragment :
-    BaseFragment<FragmentAnimationsRotateBinding> (FragmentAnimationsRotateBinding::inflate) {
+    BaseFragment<FragmentAnimationsRotateBinding>(FragmentAnimationsRotateBinding::inflate) {
 
-    private var openMenuState : Boolean = false
+    private var openMenuState: Boolean = false
     private val duration = 1000L
 
     companion object {
@@ -22,11 +22,11 @@ class AnimationRotateFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fab.setOnClickListener {
-            animations()
+            animationsVisibilityMenu()
         }
     }
 
-    private fun animations() {
+    private fun animationsVisibilityMenu() {
         openMenuState = !openMenuState
         var alfaMenu = 0f
         var alfaBackground = 0f
@@ -37,8 +37,9 @@ class AnimationRotateFragment :
         var movePosStart = -130f
         var movePosEnd = -20f
 
-        if (openMenuState){
-            rotationDegreesStart = rotationDegreesEnd.also { rotationDegreesEnd = rotationDegreesStart }
+        if (openMenuState) {
+            rotationDegreesStart =
+                rotationDegreesEnd.also { rotationDegreesEnd = rotationDegreesStart }
             movePosStart = movePosEnd.also { movePosEnd = movePosStart }
 
             alfaMenu = 1f
@@ -46,16 +47,31 @@ class AnimationRotateFragment :
             clickableState = true
         }
 
-        ObjectAnimator.ofFloat(binding.optionOneContainer, View.TRANSLATION_Y, 2 * movePosStart, 2 * movePosEnd).setDuration(duration).start()
-        ObjectAnimator.ofFloat(binding.optionTwoContainer, View.TRANSLATION_Y, movePosStart, movePosEnd).setDuration(duration).start()
+        ObjectAnimator.ofFloat(
+            binding.optionOneContainer,
+            View.TRANSLATION_Y,
+            2 * movePosStart,
+            2 * movePosEnd
+        ).setDuration(duration).start()
+        ObjectAnimator.ofFloat(
+            binding.optionTwoContainer,
+            View.TRANSLATION_Y,
+            movePosStart,
+            movePosEnd
+        ).setDuration(duration).start()
 
-        ObjectAnimator.ofFloat(binding.fab, View.ROTATION_Y, rotationDegreesStart, rotationDegreesEnd).setDuration(duration).start()
+        ObjectAnimator.ofFloat(
+            binding.fab,
+            View.ROTATION_Y,
+            rotationDegreesStart,
+            rotationDegreesEnd
+        ).setDuration(duration).start()
 
-        fun animateMenuContainer(container: LinearLayout){
+        fun animateMenuContainer(container: LinearLayout) {
             container.animate()
                 .alpha(alfaMenu)
-                .setDuration(2 * duration/3)
-                .setListener(object : AnimatorListenerAdapter(){
+                .setDuration(2 * duration / 3)
+                .setListener(object : AnimatorListenerAdapter() {
                     override fun onAnimationEnd(animation: Animator?) {
                         super.onAnimationEnd(animation)
                         container.isClickable = clickableState
