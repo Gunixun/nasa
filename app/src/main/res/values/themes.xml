@@ -22,6 +22,7 @@
         <item name="colorOnSurface">?superColor_900</item>
 
         <item name="bottomAppBarStyle">@style/myBottomAppBarStyle</item>
+        <item name="bottomNavigationStyle">@style/myBottomNavigationView</item>
 
         <item name="superColor_0">#FFFFFF</item>
         <item name="superColor">#4a148c</item>

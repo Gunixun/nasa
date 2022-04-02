@@ -1,7 +1,7 @@
 package com.example.nasa.repository
 
 import com.example.nasa.BuildConfig
-import com.example.nasa.model.PictureByDayModel
+import com.example.nasa.model.PictureByDayData
 import com.example.nasa.repository.api.RetrofitApi
 import com.example.nasa.repository.dto.PictureByDayResponceData
 import com.example.nasa.utils.BASEURL
@@ -25,7 +25,7 @@ class PictureRetrofitRepositoryImpl : IPictureRepository {
             .build().create(RetrofitApi::class.java)
     }
 
-    override fun getPictureByDate(date: Date, callback: CallbackData<PictureByDayModel>) {
+    override fun getPictureByDate(date: Date, callback: CallbackData<PictureByDayData>) {
         val sdf = SimpleDateFormat("yyyy-M-dd")
         val currentDate = sdf.format(date)
         api.getPictureByDay(BuildConfig.NASA_API_KEY, currentDate).enqueue(
