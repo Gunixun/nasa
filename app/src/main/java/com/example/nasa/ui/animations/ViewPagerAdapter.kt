@@ -1,11 +1,10 @@
-package com.example.nasa.ui.mars
+package com.example.nasa.ui.animations
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.nasa.ui.animations.AnimationsList
 
-enum class ViewList(val value: Int) {
-    MARSFHAZ(0), MARSRHAZ(1);
+enum class AnimationsList(val value: Int) {
+    ROTATE(0), CONSTRAINTS(1);
 
     companion object {
         fun fromInt(value: Int) = values().first { it.value == value }
@@ -17,8 +16,8 @@ class ViewPagerAdapter(private val fragment: Fragment) :
     FragmentStateAdapter(fragment) {
 
     private val fragments = arrayOf(
-        MarsPictureFragment.newInstance("FHAZ"),
-        MarsPictureFragment.newInstance("CHEMCAM")
+        AnimationsRotateFragment.newInstance(),
+        AnimationsConstraintSetFragment.newInstance()
     )
 
     override fun getItemCount() = fragments.size

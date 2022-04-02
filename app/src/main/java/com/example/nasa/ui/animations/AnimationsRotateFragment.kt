@@ -1,4 +1,4 @@
-package com.example.nasa.ui.animation
+package com.example.nasa.ui.animations
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -9,14 +9,14 @@ import android.widget.LinearLayout
 import com.example.nasa.databinding.FragmentAnimationsRotateBinding
 import com.example.nasa.ui.BaseFragment
 
-class AnimationRotateFragment :
+class AnimationsRotateFragment :
     BaseFragment<FragmentAnimationsRotateBinding>(FragmentAnimationsRotateBinding::inflate) {
 
     private var openMenuState: Boolean = false
     private val duration = 1000L
 
     companion object {
-        fun newInstance() = AnimationRotateFragment()
+        fun newInstance() = AnimationsRotateFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

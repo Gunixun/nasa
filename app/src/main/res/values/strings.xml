@@ -26,4 +26,7 @@
     <string name="meteorite">Meteorite</string>
     <string name="nebula">Nebula</string>
     <string name="fall_load_data">Не удалось загрузить данные</string>
+    <string name="title_mars">Чудесные просторы Марса</string>
+    <string name="descriptions_mars">На фото видно камни и песок в кратере Даниэлсона (диаметр кратера около 67 км), расположенного на юго-востоке области Arabia Terra.</string>
+    <string name="user_help">Нажмите для полученния информации</string>
 </resources>

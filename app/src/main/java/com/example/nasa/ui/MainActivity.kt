@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.example.nasa.R
 import com.example.nasa.databinding.ActivityMainBinding
-import com.example.nasa.ui.animation.AnimationRotateFragment
+import com.example.nasa.ui.animations.NavigationAnimationsFragment
 import com.example.nasa.ui.home.PictureByDayFragment
 import com.example.nasa.ui.mars.NavigationFragment
 import com.example.nasa.ui.nebula.NebulaFragment
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(){
                     true
                 }
                 R.id.bottom_view_moon -> {
-                    navigationTo(AnimationRotateFragment.newInstance())
+                    navigationTo(NavigationAnimationsFragment.newInstance())
                     true
                 }
                 R.id.bottom_view_nebula -> {
