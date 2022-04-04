@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewMoon"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        app:srcCompat="@drawable/ic_moon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewMoon"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewMoon"
+        app:layout_constraintTop_toTopOf="@+id/imageViewMoon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/wikiImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_wikipedia" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewMoon"
+        app:layout_constraintEnd_toStartOf="@+id/barrier"
+        app:layout_constraintStart_toEndOf="@+id/imageViewMoon"
+        app:layout_constraintTop_toTopOf="@+id/imageViewMoon" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="wikiImageView" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewMoon"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

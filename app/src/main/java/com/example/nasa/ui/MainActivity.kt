@@ -10,6 +10,7 @@ import com.example.nasa.ui.animations.NavigationAnimationsFragment
 import com.example.nasa.ui.home.PictureByDayFragment
 import com.example.nasa.ui.mars.NavigationFragment
 import com.example.nasa.ui.nebula.NebulaFragment
+import com.example.nasa.ui.recycler.RecyclerFragment
 import com.example.nasa.ui.settings.SettingsFragment
 import com.example.nasa.utils.getCurrentDayNightMode
 import com.example.nasa.utils.getCurrentTheme
@@ -22,21 +23,21 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(getRealStyle(getCurrentTheme(this)))
-        AppCompatDelegate.setDefaultNightMode(getDayNightMode(getCurrentDayNightMode(this)));
-        setContentView(R.layout.activity_main)
+        AppCompatDelegate.setDefaultNightMode(getDayNightMode(getCurrentDayNightMode(this)))
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         if (savedInstanceState == null) {
-            navigationTo(PictureByDayFragment.newInstance())
+            navigationTo(RecyclerFragment.newInstance())
         }
         initBottomNavigationView()
     }
 
     private fun initBottomNavigationView() {
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.bottom_view_home -> {
-                    navigationTo(PictureByDayFragment.newInstance())
+                    navigationTo(RecyclerFragment.newInstance())
                     true
                 }
                 R.id.bottom_view_mars -> {
