@@ -1,8 +1,12 @@
 package com.example.nasa.ui.recycler
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nasa.R
@@ -12,10 +16,13 @@ import com.example.nasa.databinding.FragmentRecyclerItemMoonBinding
 import com.example.nasa.ui.recycler.diffUtils.Change
 import com.example.nasa.ui.recycler.diffUtils.DiffUtilsCallback
 import com.example.nasa.ui.recycler.diffUtils.createCombinePayloads
+import com.example.nasa.ui.recycler.utils.ItemTouchHelperAdapter
+import com.example.nasa.ui.recycler.utils.ItemTouchHelperViewHolder
 import com.example.nasa.ui.recycler.utils.generateData
+import java.util.*
 
-class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
-    RecyclerView.Adapter<RecyclerFragmentAdapter.BaseViewHolder>() {
+class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener, val onStartDragListener: OnStartDragListener) :
+    RecyclerView.Adapter<RecyclerFragmentAdapter.BaseViewHolder>(), ItemTouchHelperAdapter {
 
     private var listData: MutableList<Pair<Data, Boolean>> = arrayListOf()
 
@@ -85,6 +92,18 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
         notifyItemInserted(listData.size - 1)
     }
 
+    override fun onItemMove(sourcePosition: Int, targetPosition: Int) {
+        if (targetPosition > 0){
+            Collections.swap(listData, sourcePosition, targetPosition)
+            notifyItemMoved(sourcePosition, targetPosition)
+        }
+    }
+
+    override fun onItemDismiss(position: Int) {
+        listData.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         abstract fun bind(data: Data)
     }
@@ -101,7 +120,8 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
         }
     }
 
-    inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view), ItemTouchHelperViewHolder {
+        @SuppressLint("ClickableViewAccessibility")
         override fun bind(data: Data) {
             FragmentRecyclerItemMarsBinding.bind(itemView).apply {
                 textViewName.text = data.name
@@ -126,17 +146,13 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
                 }
                 imageViewMoveItemUp.setOnClickListener {
                     if (layoutPosition > 1) {
-                        listData.removeAt(layoutPosition).apply {
-                            listData.add(layoutPosition - 1, this)
-                        }
+                        Collections.swap(listData, layoutPosition, layoutPosition - 1)
                         notifyItemMoved(layoutPosition, layoutPosition - 1)
                     }
                 }
                 imageViewMoveItemDown.setOnClickListener {
                     if (layoutPosition != listData.size - 1) {
-                        listData.removeAt(layoutPosition).apply {
-                            listData.add(layoutPosition + 1, this)
-                        }
+                        Collections.swap(listData, layoutPosition, layoutPosition + 1)
                         notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
                 }
@@ -147,7 +163,22 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
                     }
                     notifyItemChanged(layoutPosition)
                 }
+                dragHandleImageView.setOnTouchListener { v, event ->
+                    if(event.actionMasked == MotionEvent.ACTION_DOWN
+                        || event.actionMasked == MotionEvent.ACTION_UP){
+                        onStartDragListener.onStartDrag(this@MarsViewHolder)
+                    }
+                    false
+                }
             }
+        }
+
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.CYAN)
+        }
+
+        override fun onItemClear() {
+            itemView.setBackgroundColor(0)
         }
     }
 
