@@ -70,6 +70,7 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>(FragmentRecyclerB
             ),
         )
         listData.shuffle()
+        listData.add(0, Pair(Data(getString(R.string.header), type = TypeItem.HEADER), false))
         return listData
     }
 }

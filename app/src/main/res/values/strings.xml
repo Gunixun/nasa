@@ -23,6 +23,7 @@
     <string name="home">Home</string>
     <string name="mars">Mars</string>
     <string name="moon">Moon</string>
+    <string name="header">Заголовок</string>
     <string name="meteorite">Meteorite</string>
     <string name="nebula">Nebula</string>
     <string name="fall_load_data">Не удалось загрузить данные</string>

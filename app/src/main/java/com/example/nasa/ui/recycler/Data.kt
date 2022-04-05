@@ -4,7 +4,7 @@ import java.util.*
 
 
 enum class TypeItem(val value: Int) {
-    MOON(0), MARS(1);
+    HEADER(0), MOON(1), MARS(2);
 
     companion object {
         fun fromInt(value: Int) = values().first { it.value == value }

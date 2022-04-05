@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nasa.databinding.FragmentRecyclerItemHeaderBinding
 import com.example.nasa.databinding.FragmentRecyclerItemMarsBinding
 import com.example.nasa.databinding.FragmentRecyclerItemMoonBinding
 import com.example.nasa.ui.recycler.diffUtils.Change
@@ -31,6 +32,10 @@ class RecyclerFragmentAdapter(val onClickItemListener:OnClickItemListener): Recy
             TypeItem.MARS -> {
                 val binding = FragmentRecyclerItemMarsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
                 MarsViewHolder(binding.root)
+            }
+            TypeItem.HEADER -> {
+                val binding = FragmentRecyclerItemHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                HeaderViewHolder(binding.root)
             }
         }
     }
@@ -78,6 +83,14 @@ class RecyclerFragmentAdapter(val onClickItemListener:OnClickItemListener): Recy
                 imageViewMars.setOnClickListener {
                     onClickItemListener.onItemClick(data)
                 }
+            }
+        }
+    }
+
+    inner class HeaderViewHolder(view: View):BaseViewHolder(view){
+        override fun bind(data: Data){
+            FragmentRecyclerItemHeaderBinding.bind(itemView).apply {
+                textViewName.text = data.name
             }
         }
     }
