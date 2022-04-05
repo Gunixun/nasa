@@ -105,7 +105,8 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
         override fun bind(data: Data) {
             FragmentRecyclerItemMarsBinding.bind(itemView).apply {
                 textViewName.text = data.name
-                imageViewMars.setOnClickListener {
+                textViewMarsDescription.text = data.description
+                itemView.setOnClickListener {
                     onClickItemListener.onItemClick(data)
                 }
                 imageViewAddItem.setOnClickListener {
@@ -124,7 +125,7 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
                     notifyItemRemoved(layoutPosition)
                 }
                 imageViewMoveItemUp.setOnClickListener {
-                    if (layoutPosition > 1){
+                    if (layoutPosition > 1) {
                         listData.removeAt(layoutPosition).apply {
                             listData.add(layoutPosition - 1, this)
                         }
@@ -132,12 +133,19 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
                     }
                 }
                 imageViewMoveItemDown.setOnClickListener {
-                    if(layoutPosition != listData.size - 1){
+                    if (layoutPosition != listData.size - 1) {
                         listData.removeAt(layoutPosition).apply {
                             listData.add(layoutPosition + 1, this)
                         }
                         notifyItemMoved(layoutPosition, layoutPosition + 1)
                     }
+                }
+                textViewMarsDescription.visibility = if(listData[layoutPosition].second) View.VISIBLE else View.GONE
+                imageViewMars.setOnClickListener {
+                    listData[layoutPosition] = listData[layoutPosition].let {
+                        it.first to !it.second
+                    }
+                    notifyItemChanged(layoutPosition)
                 }
             }
         }
