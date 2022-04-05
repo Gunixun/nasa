@@ -123,6 +123,22 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
                     listData.removeAt(layoutPosition)
                     notifyItemRemoved(layoutPosition)
                 }
+                imageViewMoveItemUp.setOnClickListener {
+                    if (layoutPosition > 1){
+                        listData.removeAt(layoutPosition).apply {
+                            listData.add(layoutPosition - 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition - 1)
+                    }
+                }
+                imageViewMoveItemDown.setOnClickListener {
+                    if(layoutPosition != listData.size - 1){
+                        listData.removeAt(layoutPosition).apply {
+                            listData.add(layoutPosition + 1, this)
+                        }
+                        notifyItemMoved(layoutPosition, layoutPosition + 1)
+                    }
+                }
             }
         }
     }
