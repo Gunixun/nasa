@@ -12,6 +12,7 @@ import com.example.nasa.databinding.FragmentRecyclerItemMoonBinding
 import com.example.nasa.ui.recycler.diffUtils.Change
 import com.example.nasa.ui.recycler.diffUtils.DiffUtilsCallback
 import com.example.nasa.ui.recycler.diffUtils.createCombinePayloads
+import com.example.nasa.ui.recycler.utils.generateData
 
 class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
     RecyclerView.Adapter<RecyclerFragmentAdapter.BaseViewHolder>() {
@@ -106,6 +107,21 @@ class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
                 textViewName.text = data.name
                 imageViewMars.setOnClickListener {
                     onClickItemListener.onItemClick(data)
+                }
+                imageViewAddItem.setOnClickListener {
+                    listData.add(
+                        layoutPosition,
+                        generateData(
+                            itemView.context.getString(R.string.mars),
+                            itemView.context.getString(R.string.descriptions_mars),
+                            TypeItem.MARS
+                        )
+                    )
+                    notifyItemInserted(layoutPosition)
+                }
+                imageViewRemoveItem.setOnClickListener {
+                    listData.removeAt(layoutPosition)
+                    notifyItemRemoved(layoutPosition)
                 }
             }
         }

@@ -30,4 +30,23 @@
         android:background="#000"
         app:layout_constraintBottom_toBottomOf="@+id/imageViewMars"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewAddItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@color/red_900"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_plus_fab" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageViewRemoveItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageViewAddItem"
+        app:srcCompat="@drawable/ic_archive" />
 </androidx.constraintlayout.widget.ConstraintLayout>
