@@ -23,10 +23,13 @@
     <string name="home">Home</string>
     <string name="mars">Mars</string>
     <string name="moon">Moon</string>
+    <string name="header">Заголовок</string>
     <string name="meteorite">Meteorite</string>
     <string name="nebula">Nebula</string>
     <string name="fall_load_data">Не удалось загрузить данные</string>
     <string name="title_mars">Чудесные просторы Марса</string>
     <string name="descriptions_mars">На фото видно камни и песок в кратере Даниэлсона (диаметр кратера около 67 км), расположенного на юго-востоке области Arabia Terra.</string>
     <string name="user_help">Нажмите для полученния информации</string>
+    <string name="descriptions_moon">Луна́ — единственный естественный спутник Земли.</string>
+    <string name="description_append_mars">Добавить новый элемент Марса</string>
 </resources>
