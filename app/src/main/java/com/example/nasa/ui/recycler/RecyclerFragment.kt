@@ -6,6 +6,7 @@ import android.widget.Toast
 import com.example.nasa.R
 import com.example.nasa.databinding.FragmentRecyclerBinding
 import com.example.nasa.ui.BaseFragment
+import com.example.nasa.ui.recycler.utils.generateData
 
 class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>(FragmentRecyclerBinding::inflate) {
 
@@ -23,54 +24,38 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>(FragmentRecyclerB
             ).show()
         }
         adapter.setData(createData())
+
         binding.recyclerView.adapter = adapter
+        binding.floatButtonAddItem.setOnClickListener {
+            adapter.appendItem(
+                generateData(
+                    getString(R.string.mars),
+                    getString(R.string.descriptions_mars),
+                    TypeItem.MARS
+                )
+            )
+        }
     }
 
     private fun createData(): MutableList<Pair<Data, Boolean>> {
         val listData = arrayListOf(
-            Pair(Data(getString(R.string.moon), getString(R.string.descriptions_moon)), false),
-            Pair(Data(getString(R.string.moon), getString(R.string.descriptions_moon)), false),
-            Pair(
-                Data(
-                    getString(R.string.mars),
-                    getString(R.string.descriptions_mars),
-                    TypeItem.MARS
-                ), false
-            ),
-            Pair(Data(getString(R.string.moon), getString(R.string.descriptions_moon)), false),
-            Pair(
-                Data(
-                    getString(R.string.mars),
-                    getString(R.string.descriptions_mars),
-                    TypeItem.MARS
-                ), false
-            ),
-            Pair(
-                Data(
-                    getString(R.string.mars),
-                    getString(R.string.descriptions_mars),
-                    TypeItem.MARS
-                ), false
-            ),
-            Pair(Data(getString(R.string.moon), getString(R.string.descriptions_moon)), false),
-            Pair(
-                Data(
-                    getString(R.string.mars),
-                    getString(R.string.descriptions_mars),
-                    TypeItem.MARS
-                ), false
-            ),
-            Pair(Data(getString(R.string.moon), getString(R.string.descriptions_moon)), false),
-            Pair(
-                Data(
-                    getString(R.string.mars),
-                    getString(R.string.descriptions_mars),
-                    TypeItem.MARS
-                ), false
-            ),
+            generateData(getString(R.string.moon), getString(R.string.descriptions_moon), TypeItem.MOON),
+            generateData(getString(R.string.moon), getString(R.string.descriptions_moon), TypeItem.MOON),
+            generateData(getString(R.string.mars), getString(R.string.descriptions_mars), TypeItem.MARS),
+            generateData(getString(R.string.moon), getString(R.string.descriptions_moon), TypeItem.MOON),
+            generateData(getString(R.string.moon), getString(R.string.descriptions_moon), TypeItem.MOON),
+            generateData(getString(R.string.moon), getString(R.string.descriptions_moon), TypeItem.MOON),
+            generateData(getString(R.string.moon), getString(R.string.descriptions_moon), TypeItem.MOON),
+            generateData(getString(R.string.moon), getString(R.string.descriptions_moon), TypeItem.MOON),
+            generateData(getString(R.string.mars), getString(R.string.descriptions_mars), TypeItem.MOON),
+            generateData(getString(R.string.mars), getString(R.string.descriptions_mars), TypeItem.MOON),
+            generateData(getString(R.string.mars), getString(R.string.descriptions_mars), TypeItem.MOON),
+            generateData(getString(R.string.mars), getString(R.string.descriptions_mars), TypeItem.MOON),
+            generateData(getString(R.string.mars), getString(R.string.descriptions_mars), TypeItem.MOON),
+            generateData(getString(R.string.mars), getString(R.string.descriptions_mars), TypeItem.MOON),
         )
         listData.shuffle()
-        listData.add(0, Pair(Data(getString(R.string.header), type = TypeItem.HEADER), false))
+        listData.add(0, generateData(getString(R.string.header), "", type = TypeItem.HEADER))
         return listData
     }
 }

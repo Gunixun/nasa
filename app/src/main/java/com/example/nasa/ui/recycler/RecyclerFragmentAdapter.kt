@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nasa.R
 import com.example.nasa.databinding.FragmentRecyclerItemHeaderBinding
 import com.example.nasa.databinding.FragmentRecyclerItemMarsBinding
 import com.example.nasa.databinding.FragmentRecyclerItemMoonBinding
@@ -12,11 +13,12 @@ import com.example.nasa.ui.recycler.diffUtils.Change
 import com.example.nasa.ui.recycler.diffUtils.DiffUtilsCallback
 import com.example.nasa.ui.recycler.diffUtils.createCombinePayloads
 
-class RecyclerFragmentAdapter(val onClickItemListener:OnClickItemListener): RecyclerView.Adapter<RecyclerFragmentAdapter.BaseViewHolder>() {
+class RecyclerFragmentAdapter(val onClickItemListener: OnClickItemListener) :
+    RecyclerView.Adapter<RecyclerFragmentAdapter.BaseViewHolder>() {
 
     private var listData: MutableList<Pair<Data, Boolean>> = arrayListOf()
 
-    fun setData(data: MutableList<Pair<Data, Boolean>>){
+    fun setData(data: MutableList<Pair<Data, Boolean>>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilsCallback(listData, data))
         diffResult.dispatchUpdatesTo(this)
         listData.clear()
@@ -24,17 +26,29 @@ class RecyclerFragmentAdapter(val onClickItemListener:OnClickItemListener): Recy
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return when(TypeItem.fromInt(viewType)){
+        return when (TypeItem.fromInt(viewType)) {
             TypeItem.MOON -> {
-                val binding = FragmentRecyclerItemMoonBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding = FragmentRecyclerItemMoonBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 MoonViewHolder(binding.root)
             }
             TypeItem.MARS -> {
-                val binding = FragmentRecyclerItemMarsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding = FragmentRecyclerItemMarsBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 MarsViewHolder(binding.root)
             }
             TypeItem.HEADER -> {
-                val binding = FragmentRecyclerItemHeaderBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+                val binding = FragmentRecyclerItemHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
                 HeaderViewHolder(binding.root)
             }
         }
@@ -44,13 +58,18 @@ class RecyclerFragmentAdapter(val onClickItemListener:OnClickItemListener): Recy
         holder.bind(listData[position].first)
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isNotEmpty()){
+    override fun onBindViewHolder(
+        holder: BaseViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if (payloads.isNotEmpty()) {
             val change = createCombinePayloads(payloads as List<Change<Pair<Data, Boolean>>>)
             val oldData = change.oldData
             val newData = change.newData
             if (oldData.first.name != newData.first.name)
-                FragmentRecyclerItemMarsBinding.bind(holder.itemView).textViewName.text = newData.first.name
+                FragmentRecyclerItemMarsBinding.bind(holder.itemView).textViewName.text =
+                    newData.first.name
         } else {
             super.onBindViewHolder(holder, position, payloads)
         }
@@ -60,12 +79,17 @@ class RecyclerFragmentAdapter(val onClickItemListener:OnClickItemListener): Recy
 
     override fun getItemViewType(position: Int) = listData[position].first.type.value
 
-    abstract class BaseViewHolder(view: View):RecyclerView.ViewHolder(view){
+    fun appendItem(data: Pair<Data, Boolean>) {
+        listData.add(data)
+        notifyItemInserted(listData.size - 1)
+    }
+
+    abstract class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         abstract fun bind(data: Data)
     }
 
-    inner class MoonViewHolder(view: View):BaseViewHolder(view){
-        override fun bind(data: Data){
+    inner class MoonViewHolder(view: View) : BaseViewHolder(view) {
+        override fun bind(data: Data) {
             FragmentRecyclerItemMoonBinding.bind(itemView).apply {
                 textViewName.text = data.name
                 textViewDescription.text = data.description
@@ -76,8 +100,8 @@ class RecyclerFragmentAdapter(val onClickItemListener:OnClickItemListener): Recy
         }
     }
 
-    inner class MarsViewHolder(view: View):BaseViewHolder(view){
-        override fun bind(data: Data){
+    inner class MarsViewHolder(view: View) : BaseViewHolder(view) {
+        override fun bind(data: Data) {
             FragmentRecyclerItemMarsBinding.bind(itemView).apply {
                 textViewName.text = data.name
                 imageViewMars.setOnClickListener {
@@ -87,8 +111,8 @@ class RecyclerFragmentAdapter(val onClickItemListener:OnClickItemListener): Recy
         }
     }
 
-    inner class HeaderViewHolder(view: View):BaseViewHolder(view){
-        override fun bind(data: Data){
+    inner class HeaderViewHolder(view: View) : BaseViewHolder(view) {
+        override fun bind(data: Data) {
             FragmentRecyclerItemHeaderBinding.bind(itemView).apply {
                 textViewName.text = data.name
             }
