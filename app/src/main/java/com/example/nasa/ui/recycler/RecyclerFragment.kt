@@ -27,7 +27,7 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>(FragmentRecyclerB
     }
 
     private fun createData(): MutableList<Pair<Data, Boolean>> {
-        val data = arrayListOf(
+        val listData = arrayListOf(
             Pair(Data(getString(R.string.moon), getString(R.string.descriptions_moon)), false),
             Pair(Data(getString(R.string.moon), getString(R.string.descriptions_moon)), false),
             Pair(
@@ -69,7 +69,7 @@ class RecyclerFragment : BaseFragment<FragmentRecyclerBinding>(FragmentRecyclerB
                 ), false
             ),
         )
-        data.shuffle()
-        return data
+        listData.shuffle()
+        return listData
     }
 }
