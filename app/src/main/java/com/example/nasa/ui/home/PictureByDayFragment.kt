@@ -1,15 +1,18 @@
 package com.example.nasa.ui.home
 
 import android.content.Intent
+import android.graphics.BlurMaskFilter
+import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.os.*
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.*
 import android.transition.*
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -21,8 +24,8 @@ import com.example.nasa.R
 import com.example.nasa.databinding.FragmentPictureByDayBinding
 import com.example.nasa.model.PictureByDayData
 import com.example.nasa.ui.BaseFragmentWithModel
-import com.example.nasa.utils.createMsgSnackBar
 import com.example.nasa.utils.createErrSnackBar
+import com.example.nasa.utils.createMsgSnackBar
 import com.example.nasa.utils.hideSnackBar
 import com.example.nasa.view_model.AppState
 import com.example.nasa.view_model.PictureByDayViewModel
@@ -41,7 +44,7 @@ class PictureByDayFragment :
     private lateinit var currentDate: Date
     private var retryIter: Int = 0
     private var zoom: Boolean = false
-    private var snackBar: Snackbar? =null
+    private var snackBar: Snackbar? = null
 
     companion object {
         fun newInstance() = PictureByDayFragment()
@@ -76,7 +79,7 @@ class PictureByDayFragment :
                         { viewModel.sendServerRequest(currentDate) }
                     )
                     snackBar?.show()
-                } else{
+                } else {
                     binding.root.createMsgSnackBar(
                         text = this.resources.getString(R.string.fall_load_data)
                     ).show()
@@ -99,9 +102,10 @@ class PictureByDayFragment :
         return vId!!
     }
 
-    private fun showNasaVideo(videoId:String){
+    private fun showNasaVideo(videoId: String) {
         lifecycle.addObserver(binding.youtubePlayerView)
-        binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+        binding.youtubePlayerView.addYouTubePlayerListener(object :
+            AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(videoId, 0f)
             }
@@ -109,15 +113,15 @@ class PictureByDayFragment :
     }
 
     private fun setPictureData(pictureByDayData: PictureByDayData) {
-        if (pictureByDayData.mediaType == "video"){
+        if (pictureByDayData.mediaType == "video") {
             animationsVisibilityPictureByDay(binding.youtubePlayerView)
             showNasaVideo(extractYTId(pictureByDayData.url))
         } else {
             animationsVisibilityPictureByDay(binding.imageView)
             binding.imageView.load(pictureByDayData.hdurl)
-            binding.included.bottomSheetDescriptionHeader.text = pictureByDayData.title
-            binding.included.bottomSheetDescription.text = pictureByDayData.explanation
         }
+        binding.included.bottomSheetDescriptionHeader.text = pictureByDayData.title
+        updateStyleDescriptionText(pictureByDayData.explanation)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -134,7 +138,8 @@ class PictureByDayFragment :
             changeBounds.duration = 1500
             TransitionManager.beginDelayedTransition(binding.container, changeBounds)
             zoom = !zoom
-            binding.imageView.scaleType = if(zoom) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.CENTER_INSIDE
+            binding.imageView.scaleType =
+                if (zoom) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.CENTER_INSIDE
         }
 
         setFont()
@@ -175,29 +180,85 @@ class PictureByDayFragment :
         transition.ordering = TransitionSet.ORDERING_SEQUENTIAL
         transition.addTransition(fade)
         transition.addTransition(changeBounds)
-        TransitionManager.beginDelayedTransition(binding.container,transition)
-        view.visibility =  View.VISIBLE
+        TransitionManager.beginDelayedTransition(binding.container, transition)
+        view.visibility = View.VISIBLE
     }
 
-    private fun setFont(){
+    private fun setFont() {
         val request = FontRequest(
             "com.google.android.gms.fonts",
             "com.google.android.gms",
             "name=Roboto&amp;weight=500",
             R.array.com_google_android_gms_fonts_certs
         )
-        val callback = object : FontsContractCompat.FontRequestCallback(){
+        val callback = object : FontsContractCompat.FontRequestCallback() {
             override fun onTypefaceRetrieved(typeface: Typeface?) {
                 binding.included.bottomSheetDescriptionHeader.typeface = typeface
                 super.onTypefaceRetrieved(typeface)
             }
 
             override fun onTypefaceRequestFailed(reason: Int) {
-                Toast.makeText(context, "Ошибка подгрузки шрифта${reason}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Ошибка подгрузки шрифта${reason}", Toast.LENGTH_SHORT)
+                    .show()
                 super.onTypefaceRequestFailed(reason)
             }
         }
-        FontsContractCompat.requestFont(requireContext(), request, callback, Handler(Looper.myLooper()!!))
+        FontsContractCompat.requestFont(
+            requireContext(),
+            request,
+            callback,
+            Handler(Looper.myLooper()!!)
+        )
+
+    }
+
+    private fun updateStyleDescriptionText(text: String) {
+        var textPosIndex = 0
+        var currentSpan: CharacterStyle? = null
+        val rnd = Random()
+        val flag = SpannableString.SPAN_INCLUSIVE_INCLUSIVE
+        val sizeText = text.length
+
+        var spannableStringBuilder = SpannableStringBuilder(text)
+        binding.included.bottomSheetDescription.setText(
+            spannableStringBuilder,
+            TextView.BufferType.EDITABLE
+        )
+        spannableStringBuilder =
+            binding.included.bottomSheetDescription.text as SpannableStringBuilder
+
+        val blurRadius = 5f
+        val blurMaskFilter = BlurMaskFilter(blurRadius, BlurMaskFilter.Blur.SOLID)
+        spannableStringBuilder.setSpan(MaskFilterSpan(blurMaskFilter), 0, sizeText / 4, flag)
+
+        val fontSizeInPx = 30
+        spannableStringBuilder.setSpan(AbsoluteSizeSpan(fontSizeInPx), sizeText / 4, 2 * sizeText / 4, flag)
+
+        val proportion = 2.0f
+        spannableStringBuilder.setSpan(ScaleXSpan(proportion), 2 * sizeText / 4, 3 * sizeText / 4, flag)
+
+        spannableStringBuilder.setSpan(UnderlineSpan(), 3 * sizeText / 4, sizeText, flag)
+
+
+        object : CountDownTimer(9999999999999, 300) {
+            override fun onTick(millisUntilFinished: Long) {
+                currentSpan?.let { spannableStringBuilder.removeSpan(it) }
+                textPosIndex++
+
+                if (textPosIndex < spannableStringBuilder.length){
+
+                    val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+                    currentSpan = ForegroundColorSpan(color)
+
+                    spannableStringBuilder.setSpan(currentSpan, textPosIndex, textPosIndex+ 1, flag)
+                } else{
+                    textPosIndex = 0
+                }
+            }
+
+            override fun onFinish() {
+            }
+        }.start()
 
     }
 }
