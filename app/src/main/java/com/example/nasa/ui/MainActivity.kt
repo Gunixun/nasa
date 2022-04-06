@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(){
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (savedInstanceState == null) {
-            navigationTo(RecyclerFragment.newInstance())
+            navigationTo(PictureByDayFragment.newInstance())
         }
         initBottomNavigationView()
     }
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(){
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.bottom_view_home -> {
-                    navigationTo(RecyclerFragment.newInstance())
+                    navigationTo(PictureByDayFragment.newInstance())
                     true
                 }
                 R.id.bottom_view_mars -> {

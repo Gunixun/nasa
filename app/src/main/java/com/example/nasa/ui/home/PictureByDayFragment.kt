@@ -1,12 +1,20 @@
 package com.example.nasa.ui.home
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.transition.*
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.provider.FontRequest
+import androidx.core.provider.FontsContractCompat
 import androidx.core.view.isVisible
 import coil.load
 import com.example.nasa.R
@@ -112,6 +120,7 @@ class PictureByDayFragment :
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initUi() {
         binding.inputLayout.setEndIconOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW).apply {
@@ -128,6 +137,7 @@ class PictureByDayFragment :
             binding.imageView.scaleType = if(zoom) ImageView.ScaleType.CENTER_CROP else ImageView.ScaleType.CENTER_INSIDE
         }
 
+        setFont()
         connectChipGroup()
         initBottomSheetBehavior()
     }
@@ -167,5 +177,27 @@ class PictureByDayFragment :
         transition.addTransition(changeBounds)
         TransitionManager.beginDelayedTransition(binding.container,transition)
         view.visibility =  View.VISIBLE
+    }
+
+    private fun setFont(){
+        val request = FontRequest(
+            "com.google.android.gms.fonts",
+            "com.google.android.gms",
+            "name=Roboto&amp;weight=500",
+            R.array.com_google_android_gms_fonts_certs
+        )
+        val callback = object : FontsContractCompat.FontRequestCallback(){
+            override fun onTypefaceRetrieved(typeface: Typeface?) {
+                binding.included.bottomSheetDescriptionHeader.typeface = typeface
+                super.onTypefaceRetrieved(typeface)
+            }
+
+            override fun onTypefaceRequestFailed(reason: Int) {
+                Toast.makeText(context, "Ошибка подгрузки шрифта${reason}", Toast.LENGTH_SHORT).show()
+                super.onTypefaceRequestFailed(reason)
+            }
+        }
+        FontsContractCompat.requestFont(requireContext(), request, callback, Handler(Looper.myLooper()!!))
+
     }
 }

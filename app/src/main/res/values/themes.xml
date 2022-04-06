@@ -2,7 +2,6 @@
     <!-- Base application theme. -->
     <style name="BaseNasaTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="fontFamily">@font/roboto_medium</item>
-        <item name="android:fontFamily">@font/roboto_medium</item>
 
         <item name="android:statusBarColor">?superColor</item>
         <item name="android:navigationBarColor">?superColor</item>
