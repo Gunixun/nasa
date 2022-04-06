@@ -2,7 +2,10 @@ package com.example.nasa.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.nasa.R
 import com.example.nasa.databinding.ActivityMainBinding
@@ -28,7 +31,14 @@ class MainActivity : AppCompatActivity(){
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (savedInstanceState == null) {
-            navigationTo(PictureByDayFragment.newInstance())
+            binding.bottomNavigationView.isVisible = false
+            navigationTo(SplashFragment.newInstance())
+
+            Handler(Looper.myLooper()!!).postDelayed({
+                navigationTo(PictureByDayFragment.newInstance())
+                binding.bottomNavigationView.isVisible = true
+
+            }, 5000L)
         }
         initBottomNavigationView()
     }
