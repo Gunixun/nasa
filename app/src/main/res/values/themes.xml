@@ -73,4 +73,8 @@
         <item name="superColor_800">#2e7d32</item>
         <item name="superColor_900">#1b5e20</item>
     </style>
+
+    <style name="SplashTheme" parent="BaseNasaTheme">
+        <item name="android:windowBackground">@drawable/splash_background</item>
+    </style>
 </resources>
