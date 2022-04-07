@@ -32,4 +32,5 @@
     <string name="user_help">Нажмите для полученния информации</string>
     <string name="descriptions_moon">Луна́ — единственный естественный спутник Земли.</string>
     <string name="description_append_mars">Добавить новый элемент Марса</string>
+    <string name="test_ux_text">Тестовый текст</string>
 </resources>

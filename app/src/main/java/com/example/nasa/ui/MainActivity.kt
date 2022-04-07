@@ -15,6 +15,7 @@ import com.example.nasa.ui.mars.NavigationFragment
 import com.example.nasa.ui.nebula.NebulaFragment
 import com.example.nasa.ui.recycler.RecyclerFragment
 import com.example.nasa.ui.settings.SettingsFragment
+import com.example.nasa.ui.ux_examples.NavigationUxFragment
 import com.example.nasa.utils.getCurrentDayNightMode
 import com.example.nasa.utils.getCurrentTheme
 import com.example.nasa.utils.getDayNightMode
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity(){
             navigationTo(SplashFragment.newInstance())
 
             Handler(Looper.myLooper()!!).postDelayed({
-                navigationTo(PictureByDayFragment.newInstance())
+                navigationTo(NavigationUxFragment.newInstance())
                 binding.bottomNavigationView.isVisible = true
 
             }, 5000L)
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(){
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.bottom_view_home -> {
-                    navigationTo(PictureByDayFragment.newInstance())
+                    navigationTo(NavigationUxFragment.newInstance())
                     true
                 }
                 R.id.bottom_view_mars -> {
