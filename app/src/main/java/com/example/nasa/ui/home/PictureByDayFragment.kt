@@ -1,5 +1,7 @@
 package com.example.nasa.ui.home
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.BlurMaskFilter
 import android.graphics.Color
@@ -33,12 +35,18 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.snackbar.Snackbar
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import smartdevelop.ir.eram.showcaseviewlib.GuideView
+import smartdevelop.ir.eram.showcaseviewlib.config.DismissType
+import smartdevelop.ir.eram.showcaseviewlib.config.Gravity
 import java.util.*
 import java.util.regex.Pattern
 
 class PictureByDayFragment :
     BaseFragmentWithModel<PictureByDayViewModel, FragmentPictureByDayBinding>
         (FragmentPictureByDayBinding::inflate) {
+
+    private val APP_PREFERENCES = "settings"
+    private val APP_PREFERENCES_TUTORIAL_KEY = "ShowTutorialState"
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var currentDate: Date
@@ -56,6 +64,11 @@ class PictureByDayFragment :
         currentDate = Date()
         initUi()
         viewModel.sendServerRequest(currentDate)
+
+        val settings = requireContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+        if(!settings.getBoolean(APP_PREFERENCES_TUTORIAL_KEY, false)) {
+            createTutorial()
+        }
     }
 
     private fun renderData(pictureOfTheDayState: AppState) {
@@ -232,10 +245,20 @@ class PictureByDayFragment :
         spannableStringBuilder.setSpan(MaskFilterSpan(blurMaskFilter), 0, sizeText / 4, flag)
 
         val fontSizeInPx = 30
-        spannableStringBuilder.setSpan(AbsoluteSizeSpan(fontSizeInPx), sizeText / 4, 2 * sizeText / 4, flag)
+        spannableStringBuilder.setSpan(
+            AbsoluteSizeSpan(fontSizeInPx),
+            sizeText / 4,
+            2 * sizeText / 4,
+            flag
+        )
 
         val proportion = 2.0f
-        spannableStringBuilder.setSpan(ScaleXSpan(proportion), 2 * sizeText / 4, 3 * sizeText / 4, flag)
+        spannableStringBuilder.setSpan(
+            ScaleXSpan(proportion),
+            2 * sizeText / 4,
+            3 * sizeText / 4,
+            flag
+        )
 
         spannableStringBuilder.setSpan(UnderlineSpan(), 3 * sizeText / 4, sizeText, flag)
 
@@ -245,13 +268,19 @@ class PictureByDayFragment :
                 currentSpan?.let { spannableStringBuilder.removeSpan(it) }
                 textPosIndex++
 
-                if (textPosIndex < spannableStringBuilder.length){
+                if (textPosIndex < spannableStringBuilder.length) {
 
-                    val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+                    val color =
+                        Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
                     currentSpan = ForegroundColorSpan(color)
 
-                    spannableStringBuilder.setSpan(currentSpan, textPosIndex, textPosIndex+ 1, flag)
-                } else{
+                    spannableStringBuilder.setSpan(
+                        currentSpan,
+                        textPosIndex,
+                        textPosIndex + 1,
+                        flag
+                    )
+                } else {
                     textPosIndex = 0
                 }
             }
@@ -260,5 +289,45 @@ class PictureByDayFragment :
             }
         }.start()
 
+    }
+
+    private fun createTutorial() {
+
+        fun createBuilder(view: View, title: String, description: String): GuideView.Builder {
+            return GuideView.Builder(requireContext())
+                .setTitle(title)
+                .setContentText(description)
+                .setGravity(Gravity.center)
+                .setDismissType(DismissType.anywhere)
+                .setTargetView(view)
+                .setDismissType(DismissType.anywhere)
+        }
+
+        val builder = createBuilder(
+            binding.chipToday,
+            "Картинка сегодняшнего дня",
+            "Необходимо выбрать, чтобы посмотреть картинку текущего дня"
+
+        ).setGuideListener {
+            val builder2 = createBuilder(
+                binding.chipYesterday,
+                "Картинка вчерашнего дня",
+                "Необходимо выбрать, чтобы посмотреть картинку вчерашнего дня"
+
+            ).setGuideListener {
+                val builder3 = createBuilder(
+                    binding.chipTwoDaysAgo,
+                    "Картинка позавчерашнего дня",
+                    "Необходимо выбрать, чтобы посмотреть картинку позавчерашнего дня"
+
+                ).setGuideListener {
+                    val settings = requireContext().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE)
+                    settings.edit().putBoolean(APP_PREFERENCES_TUTORIAL_KEY, true).apply()
+                }
+                builder3.build().show()
+            }
+            builder2.build().show()
+        }
+        builder.build().show()
     }
 }
