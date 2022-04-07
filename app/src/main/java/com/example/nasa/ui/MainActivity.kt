@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment
 import com.example.nasa.R
 import com.example.nasa.databinding.ActivityMainBinding
 import com.example.nasa.ui.animations.NavigationAnimationsFragment
-import com.example.nasa.ui.home.PictureByDayFragment
 import com.example.nasa.ui.mars.NavigationFragment
 import com.example.nasa.ui.nebula.NebulaFragment
-import com.example.nasa.ui.recycler.RecyclerFragment
 import com.example.nasa.ui.settings.SettingsFragment
 import com.example.nasa.ui.ux_examples.NavigationUxFragment
 import com.example.nasa.utils.getCurrentDayNightMode
@@ -73,6 +71,10 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun navigationTo(f: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+        supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in,
+            R.anim.push_up_out,
+            R.anim.push_up_in,
+            R.anim.slide_out
+        ).replace(R.id.container, f).commit()
     }
 }
