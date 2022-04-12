@@ -1,17 +1,19 @@
 package com.example.nasa.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.example.nasa.R
 import com.example.nasa.databinding.ActivityMainBinding
 import com.example.nasa.ui.animations.NavigationAnimationsFragment
 import com.example.nasa.ui.home.PictureByDayFragment
-import com.example.nasa.ui.mars.NavigationFragment
 import com.example.nasa.ui.nebula.NebulaFragment
-import com.example.nasa.ui.recycler.RecyclerFragment
 import com.example.nasa.ui.settings.SettingsFragment
+import com.example.nasa.ui.ux_examples.NavigationUxFragment
 import com.example.nasa.utils.getCurrentDayNightMode
 import com.example.nasa.utils.getCurrentTheme
 import com.example.nasa.utils.getDayNightMode
@@ -28,7 +30,14 @@ class MainActivity : AppCompatActivity(){
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         if (savedInstanceState == null) {
-            navigationTo(PictureByDayFragment.newInstance())
+            binding.bottomNavigationView.isVisible = false
+            navigationTo(SplashFragment.newInstance())
+
+            Handler(Looper.myLooper()!!).postDelayed({
+                navigationTo(PictureByDayFragment.newInstance())
+                binding.bottomNavigationView.isVisible = true
+
+            }, 5000L)
         }
         initBottomNavigationView()
     }
@@ -41,7 +50,7 @@ class MainActivity : AppCompatActivity(){
                     true
                 }
                 R.id.bottom_view_mars -> {
-                    navigationTo(NavigationFragment.newInstance())
+                    navigationTo(NavigationUxFragment.newInstance())
                     true
                 }
                 R.id.bottom_view_moon -> {
@@ -62,6 +71,10 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun navigationTo(f: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.container, f).commit()
+        supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in,
+            R.anim.push_up_out,
+            R.anim.push_up_in,
+            R.anim.slide_out
+        ).replace(R.id.container, f).commit()
     }
 }

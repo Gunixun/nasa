@@ -12,10 +12,13 @@
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_search.xml" value="0.194" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_send.xml" value="0.1455" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_settings_menu.xml" value="0.186" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_splash_background.xml" value="0.329" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_splash_screen.xml" value="0.167" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/ic_wikipedia.xml" value="0.194" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/mars.xml" value="0.259" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/drawable/splash_background.xml" value="0.167" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/font/roboto_medium.xml" value="0.21462163317657118" />
-        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/activity_main.xml" value="0.1661600810536981" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/bottom_navigation_layout.xml" value="0.1765625" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/bottom_sheet_layout.xml" value="0.18" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_aettings.xml" value="0.23697916666666666" />
@@ -34,6 +37,10 @@
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_recycler_item_mars.xml" value="0.23685335613510047" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_recycler_item_moon.xml" value="0.5" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_settings.xml" value="0.2" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_splash.xml" value="0.3390337751175716" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_ux_button.xml" value="0.3390337751175716" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/fragment_ux_text_view.xml" value="0.3390337751175716" />
+        <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/splash_fragment.xml" value="0.3390337751175716" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/layout/test.xml" value="0.19923044035912782" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/bottom_navigation_view.xml" value="0.20820863616930313" />
         <entry key="..\:/android/kotlin/Nasa/app/src/main/res/menu/menu_bottom_bar.xml" value="0.24114583333333334" />
